@@ -2,7 +2,7 @@ import express, { json } from 'express'
 import apiTodos from './routes/api.todos.js'
 import apiTodo from './routes/api.todo.js'
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 const app = express()
 const filePath = 'ToDos.json'
 app.use(express.json())
