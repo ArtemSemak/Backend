@@ -63,8 +63,7 @@ router.post('/', (req, res) => {
     if (req.body.name === undefined || Object.keys(req.body).length > 1) {
         res.status(422).send('Invalid fields in request')
     } else {
-        const now = new Date()
-        const todoId = Number(now)
+        const todoId = Number(new Date())
         const name = req.body.name
         const date = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`
         let todos = []
