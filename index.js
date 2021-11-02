@@ -6,8 +6,8 @@ const app = express();
 app.use(express.json());
 recursive('./routes')
     .forEach(async (file) => {
-        let  test  = await import(`./${file}`)
-        app.use('/', test.default)});
+        const  route  = await import(`./${file}`)
+        app.use('/', route.default)});
 
 
 app.listen(PORT, () => {

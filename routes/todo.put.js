@@ -18,7 +18,7 @@ router.put("/api/todo/:uuid", (req, res) => {
   }
   readFromFile(filePath, (todos) => {
     todos = todos.map((todo) => {
-        if (String(todo.uuid) === uuid) {
+        if (todo.uuid === uuid) {
           todo.name = name;
           todo.done = done;
         }

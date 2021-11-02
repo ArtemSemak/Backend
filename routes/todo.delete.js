@@ -11,7 +11,7 @@ router.delete("/api/todo/:uuid", (req, res) => {
         res.status(404).send("Task not found");
         return;
       }
-      let filteredTodos = todos.filter((todo) => String(todo.uuid) !== uuid);
+      let filteredTodos = todos.filter((todo) => todo.uuid !== uuid);
       console.log(filteredTodos, todos);
       if (filteredTodos.length === todos.length) {
         res.status(404).send("Task not found");
