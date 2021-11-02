@@ -10,9 +10,9 @@ router.post("/", (req, res) => {
     res.status(422).send("Invalid fields in request");
     return;
   }
-  const todoId = uuidv4()
+  
   const todo = {
-    uuid: todoId,
+    uuid: uuidv4(),
     name: req.body.name,
     done: false,
     createdAt: new Date(),
