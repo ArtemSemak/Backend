@@ -1,6 +1,5 @@
 import express from "express";
-import fs from "fs";
-import { writeIntoFile } from '../helper.js'
+import { readFromFile, writeIntoFile } from '../helper.js'
 
 const filePath = "ToDos.json";
 const router = express.Router();
@@ -17,19 +16,21 @@ router.put("/:uuid", (req, res) => {
     res.status(422).send("Invalid fields in request");
     return;
   }
-  let todos = [];
-  fs.readFile(filePath, "utf-8", (err, content) => {
-    todos = JSON.parse(content);
+  readFromFile(filePath, (todos) => {
     todos = todos.map((todo) => {
-      if (String(todo.uuid) === uuid) {
-        todo.name = name;
-        todo.done = done;
-      }
-      return todo;
-    });
-    res.send(todos);
-    writeIntoFile(todos)
-  });
+        if (String(todo.uuid) === uuid) {
+          todo.name = name;
+          todo.done = done;
+        }
+        return todo;
+      });
+      try {
+        writeIntoFile(todos)
+        res.send(todos);
+        } catch(e) {
+            res.status(500).send('Something went wrong')
+        }
+  })
 });
 
 export default router;
