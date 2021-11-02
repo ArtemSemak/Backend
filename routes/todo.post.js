@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 const filePath = "ToDos.json";
 const router = express.Router();
 
-router.post("/", (req, res) => {
+router.post("/api/todo", (req, res) => {
   if (req.body.name === undefined || Object.keys(req.body).length > 1) {
     res.status(422).send("Invalid fields in request");
     return;

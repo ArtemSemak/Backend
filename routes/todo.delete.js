@@ -4,7 +4,7 @@ import { readFromFile, writeIntoFile } from '../helper.js'
 const filePath = "ToDos.json";
 const router = express.Router();
 
-router.delete("/:uuid", (req, res) => {
+router.delete("/api/todo/:uuid", (req, res) => {
   const uuid = req.params.uuid;
   readFromFile(filePath, (todos) => {
     if (todos === []) {

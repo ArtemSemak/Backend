@@ -4,7 +4,7 @@ import { readFromFile, writeIntoFile } from '../helper.js'
 const filePath = "ToDos.json";
 const router = express.Router();
 
-router.put("/:uuid", (req, res) => {
+router.put("/api/todo/:uuid", (req, res) => {
   const uuid = req.params.uuid;
   const name = req.body.name;
   const done = req.body.done;

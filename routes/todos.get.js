@@ -5,7 +5,7 @@ import { readFromFile } from "../helper.js";
 const router = express.Router();
 const filePath = "ToDos.json";
 
-router.get("/", (req, res) => {
+router.get("/api/todos", (req, res) => {
   readFromFile(filePath, (todos) => {
     if (todos === []) {
         res.send([]);
