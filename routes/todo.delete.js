@@ -1,30 +1,21 @@
 import express from "express";
-import { readFromFile, writeIntoFile } from '../helper.js'
+import ToDo from "../Models/todoModel.js";
 
-const filePath = "ToDos.json";
 const router = express.Router();
 
-router.delete("/api/todo/:uuid", (req, res) => {
+router.delete("/api/todo/:uuid", async (req, res) => {
   try {
-  const uuid = req.params.uuid;
-  readFromFile(filePath, (todos) => {
-    if (todos === []) {
-        res.status(404).send("Task not found");
-        return;
-      }
-      let filteredTodos = todos.filter((todo) => todo.uuid !== uuid);
-      console.log(filteredTodos, todos);
-      if (filteredTodos.length === todos.length) {
-        res.status(404).send("Task not found");
-        return;
-      }
-        writeIntoFile(filteredTodos)
-        res.send(filteredTodos);
-        
-      })} catch(e) {
-        res.status(500).send("Something went wrong")
-      }
-  
+    const test = await ToDo.findOne({
+      where: {
+        uuid: req.params.uuid,
+      },
+    });
+
+    await test.destroy();
+    res.send(test);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 export default router;
