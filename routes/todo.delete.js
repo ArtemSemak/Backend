@@ -5,14 +5,14 @@ const router = express.Router();
 
 router.delete("/api/todo/:uuid", async (req, res) => {
   try {
-    const test = await ToDo.findOne({
+    const deletedTodo = await ToDo.findOne({
       where: {
         uuid: req.params.uuid,
       },
     });
-
-    await test.destroy();
-    res.send(test);
+    res.send(deletedTodo);
+    await deletedTodo.destroy();
+    
   } catch (e) {
     res.status(500).send(e);
   }

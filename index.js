@@ -2,16 +2,10 @@ import express, { json } from "express";
 import recursive from "recursive-readdir-sync";
 import { Sequelize } from "sequelize";
 import ToDo from "./Models/todoModel.js";
+import dotenv from "dotenv"
 
-const sequelize = new Sequelize("postgres://test:test@127.0.0.1:5432/tododb");
+dotenv.config()
 
-try {
-  await sequelize.authenticate();
-  await ToDo.sync();
-  console.log("Соединение с БД было успешно установлено");
-} catch (e) {
-  console.log("Невозможно выполнить подключение к БД: ", e);
-}
 
 const PORT = process.env.PORT || 3000;
 const app = express();

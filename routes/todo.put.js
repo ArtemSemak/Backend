@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.put("/api/todo/:uuid", async (req, res) => {
   try {
-    const test = await ToDo.update(
+    const editedTodo = await ToDo.update(
       {
         name: req.body.name,
         done: req.body.done,
@@ -16,7 +16,7 @@ router.put("/api/todo/:uuid", async (req, res) => {
         },
       }
     );
-    res.send(test);
+    res.send(editedTodo);
   } catch (e) {
     res.status(500).send(e);
   }

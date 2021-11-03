@@ -6,26 +6,29 @@ const router = express.Router();
 
 router.get("/api/todos", async (req, res) => {
   try {
-    let filterBy;
-    switch (req.query.filterBy) {
-      case "all":
-        filterBy = [true, false];
-        break;
-      case "done":
-        filterBy = true;
-        break;
-      case "undone":
-        filterBy = false;
-        break;
-    }
+    
+    const filterBy = {};
+    // switch (req.query.filterBy) {
+    //   case "all":
+    //     filterBy = [true, false];
+    //     break;
+    //   case "done":
+    //     filterBy = true;
+    //     break;
+    //   case "undone":
+    //     filterBy = false;
+    //     break;
+    // }
+    if (req.query.filterBy !== undefined) 
+      filterBy.done = req.query.filterBy === 'done' ? true : false;
+
     const todos = await ToDo.findAll({
-      where: {
-        done: filterBy,
-      },
-      order: [["createdAt", `${req.query.order}`]],
+      where: {},
+      order: [["createdAt", `${req.query.order === 'desc' ? 'desc' : 'asc'}`]],
     });
     res.send(todos);
   } catch (e) {
+    console.log(e)
     res.status(500).send("Invalid request");
   }
 });

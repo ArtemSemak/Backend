@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.post("/api/todo", async (req, res) => {
   try {
-    const test = ToDo.build({ name: req.body.name });
-    await test.save();
-    res.send(test);
+    const newTodo = ToDo.build({ name: req.body.name });
+    await newTodo.save();
+    res.send(newTodo);
   } catch (e) {
     res.status(500).send(e);
   }
