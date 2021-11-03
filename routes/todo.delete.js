@@ -5,6 +5,7 @@ const filePath = "ToDos.json";
 const router = express.Router();
 
 router.delete("/api/todo/:uuid", (req, res) => {
+  try {
   const uuid = req.params.uuid;
   readFromFile(filePath, (todos) => {
     if (todos === []) {
@@ -17,13 +18,12 @@ router.delete("/api/todo/:uuid", (req, res) => {
         res.status(404).send("Task not found");
         return;
       }
-      try {
         writeIntoFile(filteredTodos)
         res.send(filteredTodos);
-        } catch(e) {
-            res.status(500).send('Something went wrong')
-        }
-      })
+        
+      })} catch(e) {
+        res.status(500).send("Something went wrong")
+      }
   
 });
 
