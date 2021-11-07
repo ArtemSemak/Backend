@@ -1,8 +1,7 @@
-import express, { json } from "express";
-import recursive from "recursive-readdir-sync";
-import { Sequelize } from "sequelize";
-import ToDo from "./Models/todoModel.js";
-import dotenv from "dotenv"
+const express = require('express')
+const recursive = require('recursive-readdir-sync')
+const dotenv = require('dotenv')
+
 
 dotenv.config()
 

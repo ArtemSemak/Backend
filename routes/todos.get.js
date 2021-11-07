@@ -1,5 +1,7 @@
-import express from "express";
-import ToDo from "../Models/todoModel.js";
+const express = require('express')
+const db = require('../Models/index.js')
+
+
 
 const router = express.Router();
 
@@ -22,8 +24,8 @@ router.get("/api/todos", async (req, res) => {
     if (req.query.filterBy !== undefined) 
       filterBy.done = req.query.filterBy === 'done' ? true : false;
 
-    const todos = await ToDo.findAll({
-      where: {},
+    const todos = await db.ToDo.findAll({
+      where: filterBy,
       order: [["createdAt", `${req.query.order === 'desc' ? 'desc' : 'asc'}`]],
     });
     res.send(todos);
@@ -33,4 +35,4 @@ router.get("/api/todos", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router

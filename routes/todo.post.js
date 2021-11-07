@@ -1,11 +1,11 @@
-import express from "express";
-import ToDo from "../Models/todoModel.js";
+const express = require('express')
+const db = require('../Models/index.js')
 
 const router = express.Router();
 
 router.post("/api/todo", async (req, res) => {
   try {
-    const newTodo = ToDo.build({ name: req.body.name });
+    const newTodo = db.ToDo.build({ name: req.body.name });
     await newTodo.save();
     res.send(newTodo);
   } catch (e) {
@@ -13,4 +13,4 @@ router.post("/api/todo", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router

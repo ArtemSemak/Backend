@@ -1,11 +1,11 @@
-import express from "express";
-import ToDo from "../Models/todoModel.js";
+const express = require('express')
+const db = require('../Models/index.js')
 
 const router = express.Router();
 
 router.put("/api/todo/:uuid", async (req, res) => {
   try {
-    const editedTodo = await ToDo.update(
+    const editedTodo = await db.ToDo.update(
       {
         name: req.body.name,
         done: req.body.done,
@@ -22,4 +22,4 @@ router.put("/api/todo/:uuid", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router

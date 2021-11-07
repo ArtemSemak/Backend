@@ -1,23 +1,22 @@
-import  Sequelize   from "sequelize"
-import   DataTypes   from "sequelize"
+const Sequelize = require('sequelize');
 
 
-const sequelize = new Sequelize('postgres://test:test@127.0.0.1:5432/tododb')
+const sequelize = new Sequelize(process.env.DB_URL)
 
 const ToDo = sequelize.define(
     'ToDo',
     {
         uuid: {
-            type: DataTypes.UUID,
+            type: Sequelize.DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4
         },
         name: {
-            type: DataTypes.STRING,
+            type: Sequelize.DataTypes.STRING,
             allowNull: false,
             unique: true,
         },
         done: {
-            type: DataTypes.BOOLEAN,
+            type: Sequelize.DataTypes.BOOLEAN,
             defaultValue: false
         }
     },
@@ -28,4 +27,4 @@ const ToDo = sequelize.define(
 )
 
   
-export default ToDo
+module.exports = ToDo

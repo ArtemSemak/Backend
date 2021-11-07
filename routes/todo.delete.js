@@ -1,11 +1,11 @@
-import express from "express";
-import ToDo from "../Models/todoModel.js";
+const express = require('express')
+const db = require('../Models/index.js')
 
 const router = express.Router();
 
 router.delete("/api/todo/:uuid", async (req, res) => {
   try {
-    const deletedTodo = await ToDo.findOne({
+    const deletedTodo = await db.ToDo.findOne({
       where: {
         uuid: req.params.uuid,
       },
@@ -18,4 +18,4 @@ router.delete("/api/todo/:uuid", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router
