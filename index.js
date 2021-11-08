@@ -9,7 +9,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(express.json());
-app.use("/api", (req, res, next) => {
+app.use("/api", async (req, res, next) => {
   try {
     if (!req.headers["x-auth"]) return res.sendStatus(401);
 
@@ -18,17 +18,18 @@ app.use("/api", (req, res, next) => {
       process.env.SECRET_KEY
     ).login;
 
-    const user = db.User.findAll({
+    const user = await db.User.findAll({
       where: { login: login },
     });
-
+    console.log(user)
     if (user.length === 0) {
       console.log(1);
       return res.sendStatus(401);
     }
     next();
   } catch (e) {
-    res.send(e);
+    
+    res.sendStatus(401);
   }
 });
 
