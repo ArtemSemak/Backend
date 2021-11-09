@@ -19,22 +19,23 @@ app.use(express.json());
     res.header('Access-Control-Allow-Headers', 'Content-Type, x-auth, Content-Length, X-Requested-With');
     res.send(200);
   })
-//   res.setHeader('Access-Control-Allow-Origin', '*');
+  app.use('/', (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
-//     // Request methods you wish to allow
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-//     // Request headers you wish to allow
-//     res.setHeader('Access-Control-Allow-Headers', 'x-auth, content-type');
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'x-auth, content-type');
 
-//     // Set to true if you need the website to include cookies in the requests sent
-//     // to the API (e.g. in case you use sessions)
-//     res.setHeader('Access-Control-Allow-Credentials', true);
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
 
-//     // Pass to next layer of middleware
+    // Pass to next layer of middleware
   
-//   next();
-// });
+  next();
+});
 app.use("/api", async (req, res, next) => {
   try {
     console.log(req.headers['x-auth'])
