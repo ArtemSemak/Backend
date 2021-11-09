@@ -3,7 +3,7 @@ const db = require('../models/index.js')
 
 const router = express.Router();
 
-router.put("/api/todo/:uuid", async (req, res) => {
+router.put("/api/todo/:uuid/:owner", async (req, res) => {
   try {
     const editedTodo = await db.ToDo.update(
       {
@@ -13,6 +13,7 @@ router.put("/api/todo/:uuid", async (req, res) => {
       {
         where: {
           uuid: req.params.uuid,
+          owner: req.params.owner
         },
       }
     );

@@ -4,9 +4,10 @@ const db = require('../models/index.js')
 
 const router = express.Router();
 
-router.post("/api/todo", async (req, res) => {
+router.post("/api/todo/:owner", async (req, res) => {
   try {
-    const newTodo = db.ToDo.build({  name: req.body.name });
+    
+    const newTodo = db.ToDo.build({  name: req.body.name, owner: req.params.owner });
     await newTodo.save();
     
     res.send(newTodo);

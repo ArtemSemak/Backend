@@ -13,8 +13,10 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4
       },
       name: {
-        type: Sequelize.STRING,
-        unique: true,
+        type: Sequelize.STRING
+      },
+      owner: {
+        type: Sequelize.STRING
       },
       done: {
         type: Sequelize.BOOLEAN,
