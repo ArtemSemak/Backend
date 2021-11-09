@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
+app.options('*', (req,res) => { res.sendStatus(200); });
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);
   res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -39,7 +40,7 @@ app.use((req, res, next) => {
 //     res.sendStatus(401);
 //   }
 // });
-app.options('*', (req,res) => { res.sendStatus(200); });
+
 recursive("./routes").forEach(async (file) => {
   const route = await import(`./${file}`);
   app.use("/", route.default);
