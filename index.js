@@ -12,29 +12,29 @@ const app = express();
 app.use(express.json());
 app.options('*', (req,res) => { res.sendStatus(200); });
 
-app.use((req, res, next) => {
+
   app.options("/*", function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, x-auth, Content-Length, X-Requested-With');
     res.send(200);
-  });
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  })
+//   res.setHeader('Access-Control-Allow-Origin', '*');
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'x-auth, content-type');
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'x-auth, content-type');
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+//     // Set to true if you need the website to include cookies in the requests sent
+//     // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
 
-    // Pass to next layer of middleware
+//     // Pass to next layer of middleware
   
-  next();
-});
+//   next();
+// });
 app.use("/api", async (req, res, next) => {
   try {
     console.log(req.headers['x-auth'])
