@@ -30,6 +30,7 @@ app.use((req, res, next) => {
 });
 app.use("/api", async (req, res, next) => {
   try {
+    console.log(req.headers)
     if (!req.headers["x-auth"]) return res.sendStatus(401);
 
     const login = jwt.decode(
