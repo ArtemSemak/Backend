@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.json());
-app.options('*', (req,res) => { res.sendStatus(200); });
+
 
 
   app.options("/*", function(req, res, next){
