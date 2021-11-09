@@ -8,7 +8,7 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-app.options('*', (req,res) => { res.sendStatus(200); });
+
 app.use(express.json());
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);
@@ -39,7 +39,7 @@ app.use("/api", async (req, res, next) => {
     res.sendStatus(401);
   }
 });
-
+app.options('*', (req,res) => { res.sendStatus(200); });
 recursive("./routes").forEach(async (file) => {
   const route = await import(`./${file}`);
   app.use("/", route.default);
