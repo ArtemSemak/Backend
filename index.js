@@ -38,7 +38,7 @@ app.use(express.json());
 });
 app.use("/api", async (req, res, next) => {
   try {
-    console.log(req.headers['x-auth'])
+   
     if (!req.headers["x-auth"]) return res.sendStatus(401);
 
     const login = jwt.decode(
@@ -49,9 +49,9 @@ app.use("/api", async (req, res, next) => {
     const user = await db.User.findAll({
       where: { login: login },
     });
-    console.log(user)
+  
     if (user.length === 0) {
-      console.log(1);
+ 
       return res.sendStatus(401);
     }
     next();

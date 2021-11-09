@@ -21,7 +21,7 @@ router.get("/api/todos", async (req, res) => {
     //     filterBy = false;
     //     break;
     // }
-    if (req.query.filterBy !== undefined) 
+    if (req.query.filterBy === 'done' || req.query.filterBy === 'undone') 
       filterBy.done = req.query.filterBy === 'done' ? true : false;
 
     const todos = await db.ToDo.findAll({
@@ -30,7 +30,7 @@ router.get("/api/todos", async (req, res) => {
     });
     res.send(todos);
   } catch (e) {
-    console.log(e)
+
     res.status(500).send("Invalid request");
   }
 });
