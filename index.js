@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
-app.options('*', (req,res) => { res.sendStatus(200); });
+// app.options('*', (req,res) => { res.sendStatus(200); });
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
