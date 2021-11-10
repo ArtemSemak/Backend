@@ -2,40 +2,46 @@ const express = require("express");
 const db = require("../models/index.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jwt-simple");
-
+const { body, validationResult } = require("express-validator");
 const router = express.Router();
 
-router.post("/login", async (req, res) => {
-  try {
-    if (!req.body.login || !req.body.password) {
-      res.send("Invalid fields in request");
-      return;
+router.post(
+  "/login",
+  body("login").isLength({ min: 3 }),
+  body("password").isLength({ min: 3 }),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).send("Length of password and login must be more than 3");
     }
+    try {
+      if (!req.body.login || !req.body.password) {
+        return res.status(422).send("Invalid fields in request");
+      }
 
-    const user = await db.User.findAll({
-      where: {
-        login: req.body.login,
-      },
-    });
-    hash = user[0].dataValues.password;
+      const user = await db.User.findOne({
+        where: {
+          login: req.body.login,
+        },
+      });
+      if (!user) return res.status(404).send("User not found");
 
-    if (user.length === 0) {
-      res.send("User not found");
-      return;
+      const hash = user.dataValues.password;
+
+      bcrypt.compare(req.body.password, hash, (err, valid) => {
+        if (err) return res.status(400).send(err.message);
+
+        if (!valid) res.status(401).send("Incorrect password");
+        const token = jwt.encode(
+          { login: req.body.login },
+          process.env.SECRET_KEY
+        );
+        res.send(token);
+      });
+    } catch (e) {
+      res.status(500).send("Something went wrong");
     }
-    bcrypt.compare(req.body.password, hash, (err, valid) => {
-      if (err) return res.sendStatus(500);
-
-      if (!valid) res.sendStatus(401);
-      const token = jwt.encode(
-        { login: req.body.login },
-        process.env.SECRET_KEY
-      );
-      res.send(token);
-    });
-  } catch (e) {
-    res.status(500).send(e);
   }
-});
+);
 
 module.exports = router;

@@ -6,10 +6,10 @@ const db = require('../models/index.js')
 const router = express.Router();
 
 
-router.get("/api/todos/:owner", async (req, res) => {
+router.get("/api/todos", async (req, res) => {
   try {
     
-    const filterBy = {"owner": req.params.owner};
+    const filterBy = {"owner": res.locals.login};
     // switch (req.query.filterBy) {
     //   case "all":
     //     filterBy = [true, false];

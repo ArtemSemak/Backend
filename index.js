@@ -54,6 +54,7 @@ app.use("/api", async (req, res, next) => {
  
       return res.sendStatus(401);
     }
+    res.locals.login = login
     next();
   } catch (e) {
     
