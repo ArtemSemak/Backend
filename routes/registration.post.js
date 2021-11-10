@@ -32,6 +32,7 @@ router.post(
           login: newUser.login,
         },
       });
+      console.log(existingUser)
       if (existingUser)
         throw new Error("User with the same name already exists");
       const user = await db.User.create(newUser);
