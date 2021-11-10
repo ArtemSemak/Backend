@@ -22,7 +22,7 @@ router.post("/registration", async (req, res) => {
         await db.User.create(newUser);
         res.send("User created!");
       } catch (e) {
-        res.status(500).send(e);
+        res.status(500).send('User is already created');
       }
     });
   } catch (e) {
