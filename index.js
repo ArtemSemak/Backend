@@ -36,30 +36,30 @@ app.use(express.json());
   
   next();
 });
-// app.use("/api", async (req, res, next) => {
-//   try {
+app.use("/api", async (req, res, next) => {
+  try {
    
-//     if (!req.headers["x-auth"]) return res.sendStatus(401);
+    if (!req.headers["x-auth"]) return res.sendStatus(401);
 
-//     const login = jwt.decode(
-//       req.headers["x-auth"],
-//       process.env.SECRET_KEY
-//     ).login;
+    const login = jwt.decode(
+      req.headers["x-auth"],
+      process.env.SECRET_KEY
+    ).login;
 
-//     const user = await db.User.findAll({
-//       where: { login: login },
-//     });
+    const user = await db.User.findAll({
+      where: { login: login },
+    });
   
-//     if (user.length === 0) {
+    if (user.length === 0) {
  
-//       return res.sendStatus(401);
-//     }
-//     next();
-//   } catch (e) {
+      return res.sendStatus(401);
+    }
+    next();
+  } catch (e) {
     
-//     res.sendStatus(401);
-//   }
-// });
+    res.sendStatus(401);
+  }
+});
 
 recursive("./routes").forEach(async (file) => {
   const route = await import(`./${file}`);
