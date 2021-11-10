@@ -27,7 +27,7 @@ router.post(
       const hash = await bcrypt.hash(req.body.password, 10);
       newUser.password = hash;
 
-      const existingUser = db.User.findOne({
+      const existingUser = await db.User.findOne({
         where: {
           login: newUser.login,
         },
