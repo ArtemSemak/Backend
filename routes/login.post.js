@@ -31,7 +31,7 @@ router.post(
       bcrypt.compare(req.body.password, hash, (err, valid) => {
         if (err) return res.status(400).send(err.message);
 
-        if (!valid) res.status(401).send("Incorrect password");
+        if (!valid) return res.status(401).send("Incorrect password");
         const token = jwt.encode(
           { login: req.body.login },
           process.env.SECRET_KEY

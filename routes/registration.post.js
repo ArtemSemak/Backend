@@ -19,7 +19,7 @@ router.post(
     }
     try {
       if (!req.body.login || !req.body.password) {
-        res.status(500).send("Invalid fields in request");
+        res.status(422).send("Invalid fields in request");
         return;
       }
       const newUser = {};
